@@ -50,6 +50,8 @@ $config = [
             'rules' => [
                 '' => 'site/index',
                 'admin' => 'admin/site/index',
+                'admin/<action>' => 'admin/site/<action>',
+                'admin/edit/profile/<id:\d+>' => 'admin/site/edit-profile',
                 '<action>'=>'site/<action>',
             ],
         ],
