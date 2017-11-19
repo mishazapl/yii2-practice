@@ -28,6 +28,11 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
+    public function getArticle()
+    {
+        return $this->hasMany(Article::className(), ['user_id' => 'id']);
+    }
+
     /**
      * @param $username
      * @return null|static

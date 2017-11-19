@@ -54,6 +54,9 @@ AppAsset::register($this);
             )
             . Html::endForm()
             . '</li>';
+        if (Yii::$app->user->identity->role == 1) {
+            $menuItems[] = ['label' => 'AdminPanel', 'url' => ['/site/admin']];
+        }
     }
 
     echo Nav::widget([
