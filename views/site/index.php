@@ -23,9 +23,9 @@ $articles = \app\models\Article::find()->all();
         <div class="row">
             <?php foreach ($articles as $article): ?>
             <div class="col-lg-4">
-                <h2><?php echo $article->head ?></h2>
+                <h2><?php echo $article->header ?></h2>
 
-                <p><?php echo $article->short_text ?></p>
+                <p><?php echo $article->small_text ?></p>
 
                 <p>Создатель: <?php echo $article->user->login ?></p>
 

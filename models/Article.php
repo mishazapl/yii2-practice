@@ -9,9 +9,10 @@ use Yii;
  *
  * @property int $id
  * @property int $user_id
- * @property string $head
- * @property string $short_text
+ * @property string $header
+ * @property string $small_text
  * @property string $full_text
+ * @property string $link_photo
  * @property string $created_at
  * @property string $updated_at
  *
@@ -19,6 +20,9 @@ use Yii;
  */
 class Article extends \yii\db\ActiveRecord
 {
+
+    public $image;
+
     /**
      * @inheritdoc
      */
@@ -33,10 +37,10 @@ class Article extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'head', 'short_text', 'full_text'], 'required'],
+            [['user_id', 'header', 'small_text', 'full_text'], 'required'],
             [['user_id'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
-            [['head', 'short_text', 'full_text'], 'string', 'max' => 255],
+            [['header', 'small_text', 'full_text', 'link_photo'], 'string', 'max' => 255],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
@@ -49,9 +53,10 @@ class Article extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'user_id' => 'User ID',
-            'head' => 'Head',
-            'short_text' => 'Short Text',
-            'full_text' => 'Full Text',
+            'header' => 'Заголовок',
+            'small_text' => 'Короткое описание',
+            'full_text' => 'Полное описание',
+            'link_photo' => 'Фотография',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];

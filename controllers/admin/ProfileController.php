@@ -4,13 +4,16 @@ namespace app\controllers\admin;
 
 use app\components\middleware\PullMiddleWare;
 use app\models\UpdateProfileAdmin;
+use app\models\User;
 use Yii;
 use yii\base\Module;
 use yii\web\Controller;
 use yii\web\UploadedFile;
 
-class SiteController extends Controller
+class ProfileController extends Controller
 {
+
+    public $layout = 'admin-panel';
 
     public function __construct($id, Module $module, array $config = [])
     {
@@ -23,17 +26,48 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
+    /**
+     * @return string
+     *
+     * Редактирование профиля.
+     */
+
     public function actionEditProfile()
     {
         $this->rightProfile();
 
         $model = new UpdateProfileAdmin();
-        if(Yii::$app->request->isPost){
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $model->image = UploadedFile::getInstance($model, 'image');
-            $model->upload();
+            $model->updateProfile();
+            $this->redirect('/admin');
         } else {
             return $this->render('edit-profile', compact('model'));
         }
+    }
+
+    public function actionDeleteProfile()
+    {
+        if (!is_null(Yii::$app->user->identity->photo_link)) {
+            deleteFile(Yii::$app->user->identity->photo_link);
+        }
+        $model = User::find()->where(['login' => Yii::$app->user->identity->login])->one();
+        $model->delete();
+        $this->redirect('/');
+    }
+
+    public function actionUploadPhoto()
+    {
+        $model = new UpdateProfileAdmin();
+
+        if ($model->load(Yii::$app->request->post())) {
+            $model->image = UploadedFile::getInstance($model, 'image');
+            $model->upload();
+            $this->redirect('/admin');
+        } else {
+            return $this->render('edit-photo', compact('model'));
+        }
+
     }
 
     /**

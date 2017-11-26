@@ -23,7 +23,7 @@ use yii\helpers\Html;
 <div>
 
     <?php if (Yii::$app->user->identity->photo_link == null): ?>
-    <div>У вас нету фотографии</div>
+        <div>У вас нету фотографии</div>
 
     <?php else: ?>
 
@@ -31,16 +31,15 @@ use yii\helpers\Html;
 
     <?php endif; ?>
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['id' => 'edit-photo']); ?>
 
-    <?= $form->field($model, 'login')->textInput(['autofocus' => true, 'value' => Yii::$app->user->identity->login]) ?>
-    <?= $form->field($model, 'email')->textInput(['value' => Yii::$app->user->identity->email]) ?>
-    <?= $form->field($model, 'password')->passwordInput() ?>
     <?= $form->field($model, 'image')->fileInput() ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Редактировать', ['class' => 'btn btn-primary', 'name' => 'edit-profile-form-submit']) ?>
+        <?= Html::submitButton('Загрузить', ['class' => 'btn btn-primary', 'name' => 'edit-photo']) ?>
     </div>
+
     <?php ActiveForm::end(); ?>
+
 
 </div>

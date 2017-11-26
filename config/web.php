@@ -49,9 +49,20 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 '' => 'site/index',
-                'admin' => 'admin/site/index',
-                'admin/<action>' => 'admin/site/<action>',
-                'admin/edit/profile/<id:\d+>' => 'admin/site/edit-profile',
+                /**
+                 * Роуты редактирования профиля
+                 */
+                'admin' => 'admin/profile/index',
+                'admin/edit/profile/<id:\d+>' => 'admin/profile/edit-profile',
+                'admin/delete/profile/' => 'admin/profile/delete-profile',
+                'admin/edit/profile/photo' => 'admin/profile/upload-photo',
+
+                /**
+                 * Роуты редактирования статей.
+                 */
+
+                'admin/articles' => 'admin/article/index',
+
                 '<action>'=>'site/<action>',
             ],
         ],

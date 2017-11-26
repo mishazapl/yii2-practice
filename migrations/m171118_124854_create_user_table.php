@@ -18,10 +18,11 @@ class m171118_124854_create_user_table extends Migration
             'login' => $this->string()->notNull()->unique(),
             'email' => $this->string()->notNull()->unique(),
             'photo_link' => $this->string()->defaultValue(null),
-            'role' => $this->integer()->notNull()->defaultValue(0),
+            'role' => $this->smallInteger()->notNull()->defaultValue(0),
             'remember_token' => $this->string(32)->notNull(),
             'password_hash' => $this->string()->notNull(),
             'password_reset_token' => $this->string()->unique(),
+            'banned' => $this->smallInteger(),
             'created_at' => $this->timestamp()->defaultValue(null),
             'updated_at' => $this->timestamp()->defaultValue(null),
         ], $tableOptions);

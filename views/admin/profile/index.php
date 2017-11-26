@@ -12,16 +12,13 @@ use yii\helpers\Url;
         width: 300px;
         height: 300px;
     }
+
+    .image-300-200 img{
+        margin-left: 40%;
+    }
 </style>
 
-<h1>admin/site/index</h1>
-
-<p>
-    You may change the content of this page by modifying
-    the file <code><?= __FILE__; ?></code>.
-</p>
-
-<div class="col-md-4">
+<div class="col-md-4 text-center">
 <ul class="thumbnails">
     <li class="span4">
         <div class="thumbnail">
@@ -43,7 +40,10 @@ use yii\helpers\Url;
                 <br>
                 <br>
 
-                <a href="#" class="btn btn-warning">Удалить аккаунт</a></p>
+                <a href="<?= Url::toRoute('admin/delete/profile/') ?>" class="btn btn-warning">Удалить аккаунт</a></p>
+
+
+                <a href="<?= Url::toRoute('admin/edit/profile/photo/') ?>" class="btn btn-success">Обновить фото</a></p>
             </div>
         </div>
     </li>

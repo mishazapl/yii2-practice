@@ -19,9 +19,10 @@ class m171119_050819_Article extends Migration
         $this->createTable('article', [
             'id' => $this->primaryKey(),
             'user_id' => $this->integer()->notNull(),
-            'head' => $this->string()->notNull(),
-            'short_text' => $this->string()->notNull(),
+            'header' => $this->string()->notNull(),
+            'small_text' => $this->string()->notNull(),
             'full_text' => $this->string()->notNull(),
+            'link_photo' => $this->string(),
             'created_at' => $this->timestamp()->defaultValue(null),
             'updated_at' => $this->timestamp()->defaultValue(null),
         ], $tableOptions);
