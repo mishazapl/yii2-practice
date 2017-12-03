@@ -9,19 +9,16 @@ use yii\helpers\Url;
         list-style-type: none;
     }
     .image-300-200 {
-        width: 300px;
+        max-width: 300px;
         height: 300px;
     }
 
-    .image-300-200 img{
-        margin-left: 40%;
-    }
 </style>
 
 <div class="col-md-4 text-center">
 <ul class="thumbnails">
     <li class="span4">
-        <div class="thumbnail">
+        <div class="thumbnail" style="max-width: 300px;">
 
             <?php if (Yii::$app->user->identity->photo_link == null): ?>
 

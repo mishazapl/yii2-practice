@@ -20,10 +20,23 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\PhpManager',
+            'defaultRoles' => ['admin', 'user'],
+        ],
+        'assetManager' => [
+            'bundles' => [
+                'yii\web\JqueryAsset' => [
+                    'sourcePath' => null,
+                    'js' => ['/js/jquery-3.2.1.min.js'], // тут путь до Вашего экземпляра jquery
+                ],
+            ],
+        ],
         'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
         ],
+
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
@@ -50,7 +63,7 @@ $config = [
             'rules' => [
                 '' => 'site/index',
                 /**
-                 * Роуты редактирования профиля
+                 * Роуты редактирования/удаления профиля
                  */
                 'admin' => 'admin/profile/index',
                 'admin/edit/profile/<id:\d+>' => 'admin/profile/edit-profile',
@@ -58,10 +71,13 @@ $config = [
                 'admin/edit/profile/photo' => 'admin/profile/upload-photo',
 
                 /**
-                 * Роуты редактирования статей.
+                 * Роуты редактирования/удаления/добавления статей.
                  */
 
                 'admin/articles' => 'admin/article/index',
+                'admin/article/create' => 'admin/article/create-article',
+                'admin/article/edit/<id:\d+>' => 'admin/article/edit-article',
+                'admin/article/delete/<id:\d+>' => 'admin/article/delete-article',
 
                 '<action>'=>'site/<action>',
             ],

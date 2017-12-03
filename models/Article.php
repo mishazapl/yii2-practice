@@ -2,7 +2,9 @@
 
 namespace app\models;
 
+use app\controllers\SaveImage;
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "article".
@@ -18,7 +20,7 @@ use Yii;
  *
  * @property User $user
  */
-class Article extends \yii\db\ActiveRecord
+class Article extends ActiveRecord
 {
 
     public $image;
@@ -37,11 +39,12 @@ class Article extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'header', 'small_text', 'full_text'], 'required'],
+            [['header', 'small_text', 'full_text'], 'required'],
             [['user_id'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
-            [['header', 'small_text', 'full_text', 'link_photo'], 'string', 'max' => 255],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['full_text'], 'string', 'min' => 20, 'max' => 5000],
+            [['small_text'], 'string', 'min' => 15, 'max' => 2500],
+            [['header'], 'string', 'min' => 10, 'max' => 300],
         ];
     }
 
@@ -52,7 +55,7 @@ class Article extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
+            'user_id' => 'Владелец',
             'header' => 'Заголовок',
             'small_text' => 'Короткое описание',
             'full_text' => 'Полное описание',
@@ -61,6 +64,53 @@ class Article extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
         ];
     }
+
+    use SaveImage;
+
+    public function updateArticle()
+    {
+
+        $article = Article::find()->where(['id' => Yii::$app->request->get('id')])->one();
+
+        $article->header = $this->header;
+        $article->small_text = $this->small_text;
+        $article->full_text = $this->full_text;
+
+        if (!is_null($article->photo_link) && !is_null($this->image)) {
+            deleteFile($article->photo_link);
+        }
+
+        if (file_exists('/uploads/article/'.$article->id)) {
+            mkdir('uploads/article/' . $article->id, 0777);
+        }
+
+        $this->saveImage($article, 'uploads/article/'.$article->id.'/');
+
+        $article->update();
+
+    }
+
+    public function createArticle()
+    {
+        /**
+         * Сохранение id создателя.
+         */
+        $this->user_id = Yii::$app->user->identity->id;
+
+        $this->save();
+
+        /**
+         * Получение id статьи после создания и сохранение ее.
+         */
+
+        mkdir('uploads/article/' . $this->id, 0777);
+
+        $this->saveImage($this, 'uploads/article/'.$this->id.'/');
+
+        $this->update();
+
+    }
+
 
     /**
      * @return \yii\db\ActiveQuery

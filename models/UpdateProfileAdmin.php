@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\controllers\SaveImage;
 use Yii;
 use yii\base\Model;
 
@@ -39,23 +40,7 @@ class UpdateProfileAdmin extends Model
         ];
     }
 
-    /**
-     * Сохранение изображения.
-     */
-
-    private function saveImage($user)
-    {
-
-        if (!is_null($this->image)) {
-
-            $randomPath = Yii::$app->security->generateRandomString();
-
-            $this->image->saveAs("uploads/{$randomPath}.{$this->image->extension}");
-
-            $user->photo_link = '/uploads/' . $randomPath . '.' . $this->image->extension;
-        }
-
-    }
+    use SaveImage;
 
     /**
      * Обновление фотографии и данный о пользователе.
@@ -74,7 +59,7 @@ class UpdateProfileAdmin extends Model
          * Сохранение изображения.
          */
 
-        $this->saveImage($user);
+        $this->saveImage($user, 'uploads/');
 
         $user->login = $this->login;
         $user->email = $this->email;
@@ -95,7 +80,7 @@ class UpdateProfileAdmin extends Model
          * Сохранение изображения.
          */
 
-        $this->saveImage($user);
+        $this->saveImage($user, 'uploads/');
 
         $user->update();
     }

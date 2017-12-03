@@ -15,20 +15,24 @@ use yii\web\AssetBundle;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class AppAsset extends AssetBundle
+class SiteAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/site.css',
+        'css/siteMain.css',
+        'css/font-awesome.min.css',
     ];
     public $js = [
 
         'js/jquery-3.2.1.min.js',
         'js/bootstrap.min.js',
-        'js/scrollbar.js',
-        'js/sidebar.js',
         'js/jquery.pjax.js',
+        'js/skel.min.js',
+        'js/util.js',
+        'js/respond.min.js',
+        'js/main.js',
+
 
     ];
     public $depends = [
