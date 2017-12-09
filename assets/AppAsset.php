@@ -7,6 +7,7 @@
 
 namespace app\assets;
 
+use Yii;
 use yii\web\AssetBundle;
 
 /**
@@ -36,3 +37,5 @@ class AppAsset extends AssetBundle
         'yii\bootstrap\BootstrapAsset',
     ];
 }
+
+

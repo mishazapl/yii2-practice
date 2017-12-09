@@ -14,9 +14,11 @@ require __DIR__ . '/Middleware.php';
  * Here you need to include the class you want to register.
  */
 require __DIR__ . '/CheckingAdmin.php';
+require __DIR__ . '/CheckingBan.php';
 
 /**
  * Here you need to register the class.
  */
 
 PullMiddleWare::pushProduct(new app\components\middleware\CheckingAdmin('checkingAdmin'));
+PullMiddleWare::pushProduct(new app\components\middleware\CheckingBan('checkingBan'));

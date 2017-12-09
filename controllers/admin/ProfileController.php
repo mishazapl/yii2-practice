@@ -2,24 +2,13 @@
 
 namespace app\controllers\admin;
 
-use app\components\middleware\PullMiddleWare;
-use app\models\UpdateProfileAdmin;
+use app\models\profile\UpdateProfileAdmin;
 use app\models\User;
 use Yii;
-use yii\base\Module;
-use yii\web\Controller;
 use yii\web\UploadedFile;
 
-class ProfileController extends Controller
+class ProfileController extends AbstractAdmin
 {
-
-    public $layout = 'admin-panel';
-
-    public function __construct($id, Module $module, array $config = [])
-    {
-        parent::__construct($id, $module, $config);
-        PullMiddleWare::getProduct('checkingAdmin')->check();
-    }
 
     public function actionIndex()
     {

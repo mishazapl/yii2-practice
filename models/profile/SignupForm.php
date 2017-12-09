@@ -1,9 +1,10 @@
 <?php
 
-namespace app\models;
+namespace app\models\profile;
 
 use Yii;
 use yii\base\Model;
+use app\models\User;
 
 /**
  * Signup form

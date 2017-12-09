@@ -1,20 +1,19 @@
 <?php
 
-namespace app\controllers;
+namespace app\controllers\profile;
 
-use app\models\SignupForm;
+use app\controllers\SiteAbstract;
+use app\models\Article\Article;
+use app\models\profile\SignupForm;
 use app\models\User;
 use Yii;
 use yii\filters\AccessControl;
-use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
-use app\models\LoginForm;
-use app\models\ContactForm;
+use app\models\profile\LoginForm;
 
-class SiteController extends Controller
+class AutorizationController extends SiteAbstract
 {
-    public $layout = 'main2';
     /**
      * @inheritdoc
      */
@@ -64,8 +63,9 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $title = 'Hi!';
-        return $this->render('index', compact('title'));
+        $articles = Article::find()->all();
+        $title = 'Блог по Web-разработки Yii2, PHP7, Курсы.';
+        return $this->render('index', compact('title', 'articles'));
     }
 
     /**
@@ -108,34 +108,6 @@ class SiteController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
-    }
-
-    /**
-     * Displays contact page.
-     *
-     * @return Response|string
-     */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Displays about page.
-     *
-     * @return string
-     */
-    public function actionAbout()
-    {
-        return $this->render('about');
     }
 
 

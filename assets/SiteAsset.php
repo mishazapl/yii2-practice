@@ -7,6 +7,7 @@
 
 namespace app\assets;
 
+use Yii;
 use yii\web\AssetBundle;
 
 /**
@@ -15,6 +16,7 @@ use yii\web\AssetBundle;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
+
 class SiteAsset extends AssetBundle
 {
     public $basePath = '@webroot';

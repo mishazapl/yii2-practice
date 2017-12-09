@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\models\Article\Article;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;

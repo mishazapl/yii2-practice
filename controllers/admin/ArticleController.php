@@ -2,25 +2,14 @@
 
 namespace app\controllers\admin;
 
-use app\components\middleware\PullMiddleWare;
-use app\models\Article;
+use app\models\Article\Article;
 use Yii;
 use yii\data\Pagination;
-use yii\web\Controller;
-use yii\base\Module;
 use yii\web\HttpException;
 use yii\web\UploadedFile;
 
-class ArticleController extends Controller
+class ArticleController extends AbstractAdmin
 {
-
-    public $layout = 'admin-panel';
-
-    public function __construct($id, Module $module, array $config = [])
-    {
-        parent::__construct($id, $module, $config);
-        PullMiddleWare::getProduct('checkingAdmin')->check();
-    }
 
     public function actionIndex()
     {
@@ -57,9 +46,13 @@ class ArticleController extends Controller
 
                 $model->updateArticle();
 
-                $this->redirect('/admin/article/edit/' . $article->id);
+                $article->load(Yii::$app->request->post());
 
-                return;
+                return $this->render('edit-article', [
+                    'model' => $model,
+                    'article' => $article,
+                    'successCreate' => true,
+                ]);
             }
 
         }

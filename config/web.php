@@ -61,7 +61,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                '' => 'site/index',
+                '' => 'profile/autorization/index',
                 /**
                  * Роуты редактирования/удаления профиля
                  */
@@ -79,7 +79,15 @@ $config = [
                 'admin/article/edit/<id:\d+>' => 'admin/article/edit-article',
                 'admin/article/delete/<id:\d+>' => 'admin/article/delete-article',
 
-                '<action>'=>'site/<action>',
+                /**
+                 * Роуты редактирования/удаления/добавления пользователей.
+                 */
+
+                'admin/users' => 'admin/user/index',
+                'admin/user/delete/<id:\d+>' => 'admin/user/delete',
+                'admin/user/ban/<id:\d+>' => 'admin/user/ban',
+
+                '<action>'=>'profile/autorization/<action>',
             ],
         ],
     ],
@@ -102,5 +110,6 @@ if (YII_ENV_DEV) {
         //'allowedIPs' => ['127.0.0.1', '::1'],
     ];
 }
+
 
 return $config;

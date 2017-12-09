@@ -1,10 +1,11 @@
 <?php
 
-namespace app\models;
+namespace app\models\profile;
 
 use app\controllers\SaveImage;
 use Yii;
 use yii\base\Model;
+use app\models\User;
 
 /**
  * Class UpdateProfileAdmin

@@ -1,8 +1,9 @@
 <?php
 
-namespace app\models;
+namespace app\models\Article;
 
 use app\controllers\SaveImage;
+use app\models\User;
 use Yii;
 use yii\db\ActiveRecord;
 
