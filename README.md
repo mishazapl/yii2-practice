@@ -4,8 +4,6 @@
     </a>
     <h1 align="center">Yii 2 проект принадлежит Михаилу Запаленову.</h1>
     <h2>Мои контакты:</h2>
-    <br>
-    <br>
     <strong>моб. +7-904-428-97-92.</strong>
     <br>
     <strong>Telegram: @mishazapalenov</strong>
