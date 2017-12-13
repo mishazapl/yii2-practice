@@ -1,6 +1,6 @@
 <?php
 
-namespace app\controllers\admin;
+namespace app\modules\admin\controllers;
 
 use app\models\profile\UpdateProfileAdmin;
 use app\models\User;

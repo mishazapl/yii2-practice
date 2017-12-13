@@ -12,7 +12,6 @@ require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/../vendor/yiisoft/yii2/Yii.php';
 require __DIR__ . '/../components/Dumper.php';
 require __DIR__ . '/../components/DeleteFile.php';
-require __DIR__ . '/../components/middleware/RegisterMiddleware.php';
 
 
 $config = require __DIR__ . '/../config/web.php';

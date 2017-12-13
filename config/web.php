@@ -7,6 +7,12 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'modules' => [
+        'admin' => [
+            'class' => 'app\modules\admin\Module',
+        ],
+
+    ],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -16,13 +22,14 @@ $config = [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'WVTYXs1QEBqQQUvURDi_UHJM4wSmoqsZ',
             'baseUrl' => '',
+            'enableCsrfValidation'=> true,
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
         'authManager' => [
-            'class' => 'yii\rbac\PhpManager',
-            'defaultRoles' => ['admin', 'user'],
+            'class' => 'yii\rbac\DbManager',
+            'cache' => 'cache',
         ],
         'assetManager' => [
             'bundles' => [
@@ -36,9 +43,8 @@ $config = [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
         ],
-
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => 'profile/autorization/error',
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
@@ -48,13 +54,11 @@ $config = [
             'useFileTransport' => true,
         ],
         'log' => [
-            'traceLevel' => YII_DEBUG ? 3 : 0,
-            'targets' => [
-                [
-                    'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
-                ],
-            ],
+            'targets' => [[
+                'class' => 'yii\log\FileTarget',
+                'levels' => ['error', 'warning'],
+                'logFile' => '@runtime/logs/app.log'
+            ]]
         ],
         'db' => $db,
         'urlManager' => [
@@ -68,7 +72,7 @@ $config = [
                 'admin' => 'admin/profile/index',
                 'admin/edit/profile/<id:\d+>' => 'admin/profile/edit-profile',
                 'admin/delete/profile/' => 'admin/profile/delete-profile',
-                'admin/edit/profile/photo' => 'admin/profile/upload-photo',
+                'admin/edit/profile/photo/' => 'admin/profile/upload-photo',
 
                 /**
                  * Роуты редактирования/удаления/добавления статей.
@@ -86,6 +90,12 @@ $config = [
                 'admin/users' => 'admin/user/index',
                 'admin/user/delete/<id:\d+>' => 'admin/user/delete',
                 'admin/user/ban/<id:\d+>' => 'admin/user/ban',
+
+                /**
+                 * Роут конкретной статьи
+                 */
+                'article/<id:\d+>' => 'article/articles/index',
+
 
                 '<action>'=>'profile/autorization/<action>',
             ],

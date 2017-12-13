@@ -8,16 +8,20 @@
 
 namespace app\controllers;
 
-use app\components\middleware\PullMiddleWare;
+use Yii;
 use yii\web\Controller;
 
 class SiteAbstract extends Controller
 {
-    public function beforeAction($action)
+    public function init()
     {
-        if (!$action instanceof \yii\web\ErrorAction) {
-            PullMiddleWare::getProduct('checkingBan')->check();
+        parent::init();
+//        var_dump(Yii::$app->user->can('banned'));
+        if (Yii::$app->user->can('banned')) {
+            $name = 'Доступ запрещен';
+            $message = 'Вы были заблокированы за нарушения правил сайта.';
+            die($this->render('error', compact('name', 'message')));
         }
-        return parent::beforeAction($action);
+
     }
 }

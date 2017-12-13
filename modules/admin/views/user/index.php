@@ -40,9 +40,9 @@ use yii\widgets\Pjax;
 
     <?php foreach ($users as $user): ?>
         <tr>
-            <th scope="row"><?= $user->login ?></th>
-            <td><?= $user->email ?></td>
-            <td><?= $user->role ?></td>
+            <th scope="row"><?= Html::encode($user->login) ?></th>
+            <td><?= Html::encode($user->email) ?></td>
+            <td><?php Yii::$app->authManager->getRolesByUser($user->id) ?></td>
             <td>
                 <div style="width: 100px;height: 100px;"><img
                             style="-webkit-background-size: cover;background-size: cover; width: 100%;height: 100%;"
@@ -57,7 +57,7 @@ use yii\widgets\Pjax;
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 
-                        <?php if ($user->banned == 1): ?>
+                        <?php if (array_key_exists('banned', Yii::$app->authManager->getRolesByUser($user->id))): ?>
                             <li><a href="<?= Url::toRoute(['/admin/user/ban/' . $user->id]) ?>" class="btn btn-success"
                                    style="margin-bottom: 10px; margin-top: 10px; font-size: 1.2em;">Разбанить</a></li>
                         <?php else: ?>
@@ -72,7 +72,7 @@ use yii\widgets\Pjax;
                 </div>
             </td>
 
-            <?php if ($user->banned == 1): ?>
+            <?php if (array_key_exists('banned', Yii::$app->authManager->getRolesByUser($user->id))): ?>
                 <td>
                     <button class="btn btn-danger">Забанен</button>
                 </td>

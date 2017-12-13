@@ -36,13 +36,13 @@ SiteAsset::register($this);
         <div class="inner">
 
             <!-- Header -->
-            <header id="header">
+            <aside id="header">
                 <a href="/" class="logo"><strong>PHP7, Yii2, Laravel, Алгоритмы.</strong><br> Блог по Web-разработки Yii2, PHP7, Курсы.</a>
                 <ul class="icons">
                     <li><a href="https://vk.com/volgograd_web" class="icon fa-vk" style="text-decoration: none"><span class="label">Вконтакте</span></a></li>
                     <li><a href="https://www.youtube.com/channel/UCigVxgLgBPLjilARivIFtwg" class="icon fa-youtube" style="text-decoration: none"><span class="label">YouTube</span></a></li>
                 </ul>
-            </header>
+            </aside>
 
             <?= $content ?>
 
@@ -62,25 +62,25 @@ SiteAsset::register($this);
 
             <!-- Menu -->
             <nav id="menu">
-                <header class="major">
+                <div class="major">
                     <?php if (Yii::$app->user->isGuest): ?>
                         <h2><a href="/signup">Регистрация</a></h2>
                         <h2><a href="/login">Авторизация</a></h2>
                     <?php else: ?>
                     <?=
-                        Html::beginForm(['/site/logout'], 'post')
+                        Html::beginForm(['/logout'], 'post')
                         . Html::submitButton(
                             'Logout (' . Yii::$app->user->identity->login . ')',
                             ['class' => 'btn']
                         )
                         . Html::endForm()
                         ?>
-                        <?php if (Yii::$app->user->identity->role == 1): ?>
+                        <?php if (\Yii::$app->user->can('admin')): ?>
                             <h2><a href="/admin">Админ-панель</a></h2>
                         <?php endif; ?>
                     <?php endif; ?>
                     <h2>Меню</h2>
-                </header>
+                </div>
                 <ul>
                     <li><a href="/">Главная</a></li>
                 </ul>
@@ -93,15 +93,15 @@ SiteAsset::register($this);
                 </header>
                 <div class="mini-posts">
                     <article>
-                        <a href="#" class="image"><img src="images/pic07.jpg" alt="" /></a>
+                        <a href="#" class="image"><img src="" alt="" /></a>
                         <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
                     </article>
                     <article>
-                        <a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
+                        <a href="#" class="image"><img src="" alt="" /></a>
                         <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
                     </article>
                     <article>
-                        <a href="#" class="image"><img src="images/pic09.jpg" alt="" /></a>
+                        <a href="#" class="image"><img src="" alt="" /></a>
                         <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore aliquam.</p>
                     </article>
                 </div>

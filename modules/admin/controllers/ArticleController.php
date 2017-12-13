@@ -1,10 +1,12 @@
 <?php
 
-namespace app\controllers\admin;
+namespace app\modules\admin\controllers;
 
 use app\models\Article\Article;
+use app\models\User;
 use Yii;
 use yii\data\Pagination;
+use yii\helpers\ArrayHelper;
 use yii\web\HttpException;
 use yii\web\UploadedFile;
 
@@ -19,9 +21,21 @@ class ArticleController extends AbstractAdmin
 
         $pages->route = '/admin/articles';
 
-        $article = $model->offset($pages->offset)->limit($pages->limit)->all();
+        $articles = $model->offset($pages->offset)->limit($pages->limit)->asArray()->all();
 
-        return $this->render('index', array('articles' => $article, 'pages' => $pages,));
+        $idUser = ArrayHelper::map($articles, 'user_id', 'user_id');
+        $users  = ArrayHelper::map(User::find()->where(['in', 'id', $idUser])->select(['id', 'login'])->asArray()->all(), 'id', 'login');
+
+
+        return $this->render('index', array
+            (
+
+            'articles' => $articles,
+            'users' => $users,
+            'pages' => $pages,
+
+            )
+        );
     }
 
     /**

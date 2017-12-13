@@ -1,7 +1,6 @@
 <?php
 /* @var $this yii\web\View */
 
-use yii\helpers\Url;
 
 ?>
 <style>
@@ -30,17 +29,17 @@ use yii\helpers\Url;
             <div class="caption">
                 <h3>Login: <?= Yii::$app->user->identity->login ?></h3>
                 <h3>Email: <?= Yii::$app->user->identity->email ?></h3>
-                <h3>Role: Admin</h3>
+                <h3>Админ</h3>
 
-                <p><a href="<?= Url::toRoute(['admin/edit/profile/'.Yii::$app->user->identity->id]) ?>" class="btn btn-primary">Редактировать профиль</a>
+                <p><a href="<?= 'admin/edit/profile/'.Yii::$app->user->identity->id ?>" class="btn btn-primary">Редактировать профиль</a>
 
                 <br>
                 <br>
 
-                <a href="<?= Url::toRoute('admin/delete/profile/') ?>" class="btn btn-warning">Удалить аккаунт</a></p>
+                <a href="<?= 'admin/delete/profile' ?>" class="btn btn-warning">Удалить аккаунт</a></p>
 
 
-                <a href="<?= Url::toRoute('admin/edit/profile/photo/') ?>" class="btn btn-success">Обновить фото</a></p>
+                <a href="<?= 'admin/edit/profile/photo' ?>" class="btn btn-success">Обновить фото</a></p>
             </div>
         </div>
     </li>

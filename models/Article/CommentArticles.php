@@ -55,8 +55,7 @@ class CommentArticles extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCommentsArticles()
-    {
+    public function getCommentsArticles()    {
         return $this->hasMany(CommentArticles::className(), ['comment_id' => 'id']);
     }
 }

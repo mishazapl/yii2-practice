@@ -2,6 +2,8 @@
 
 /* @var $this yii\web\View */
 
+use yii\helpers\Html;
+
 $this->title = $title;
 
 ?>
@@ -24,54 +26,17 @@ $this->title = $title;
 <!-- Section -->
 <section>
     <header class="major">
-        <h2>Erat lacinia</h2>
-    </header>
-    <div class="features">
-        <article>
-            <span class="icon fa-diamond"></span>
-            <div class="content">
-                <h3>Portitor ullamcorper</h3>
-                <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-            </div>
-        </article>
-        <article>
-            <span class="icon fa-paper-plane"></span>
-            <div class="content">
-                <h3>Sapien veroeros</h3>
-                <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-            </div>
-        </article>
-        <article>
-            <span class="icon fa-rocket"></span>
-            <div class="content">
-                <h3>Quam lorem ipsum</h3>
-                <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-            </div>
-        </article>
-        <article>
-            <span class="icon fa-signal"></span>
-            <div class="content">
-                <h3>Sed magna finibus</h3>
-                <p>Aenean ornare velit lacus, ac varius enim lorem ullamcorper dolore. Proin aliquam facilisis ante interdum. Sed nulla amet lorem feugiat tempus aliquam.</p>
-            </div>
-        </article>
-    </div>
-</section>
-
-<!-- Section -->
-<section>
-    <header class="major">
         <h2>Статьи</h2>
     </header>
     <div class="posts">
         <?php foreach ($articles as $article): ?>
         <article>
-            <a href="#" class="image"><img src="<?= $article->photo_link ?>" alt="" /></a>
-            <strong style="margin-bottom: 20px; display: block;">Создатель: <?= $article->user->login ?></strong>
-            <h3><?= $article->header ?></h3>
-            <p><?=  $article->small_text ?></p>
+            <a href="#" class="image"><img src="<?= $article['photo_link'] ?>" alt="" /></a>
+            <strong style="margin-bottom: 20px; display: block;">Создатель: <?= Html::encode($users[$article['user_id']]) ?></strong>
+            <h1 style="font-size: 1.5em;"><?= Html::encode($article['header']) ?></h1>
+            <p><?=  Html::encode($article['small_text']) ?></p>
             <ul class="actions">
-                <li><a href="<?= '/article/'.$article->id ?>" class="button">More</a></li>
+                <li><a href="<?= '/article/'.$article['id'] ?>" class="button">More</a></li>
             </ul>
         </article>
     <?php endforeach; ?>

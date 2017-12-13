@@ -10,16 +10,22 @@ namespace app\controllers\article;
 
 
 use app\controllers\SiteAbstract;
+use app\models\Article\Article;
 use yii\base\Module;
 
-class ArticleController extends SiteAbstract
+class ArticlesController extends SiteAbstract
 {
-    private $articleComment;
-
     public function __construct($id, Module $module, array $config = [])
     {
         parent::__construct($id, $module, $config);
 
-        $this->articleComment = new ArticleComment();
+        $this->viewPath = '@app/views/articles';
+
+    }
+
+    public function actionIndex($id)
+    {
+        $article =  Article::find()->where(['id' => $id])->one();
+        return $this->render('index', compact('article'));
     }
 }
