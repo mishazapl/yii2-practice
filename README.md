@@ -14,15 +14,3 @@
     <strong>HH: https://volgograd.hh.ru/resume/12f04abcff0438fe490039ed1f7776476e4846 </strong>
     <br>
 </p>
-
-В данном репозитории я занимаюсь разработкой собственного проекта. Меня зовут Михаил Запаленов.
-<br>
-Мои контакты:
-<br>
-моб. +7-904-428-97-92. 
-<br>
-Telegram: @mishazapalenov. 
-<br>
-Vk: https://vk.com/atawerrus 
-<br>
-HH: https://volgograd.hh.ru/resume/12f04abcff0438fe490039ed1f7776476e4846
