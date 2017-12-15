@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\controllers;
 
+use app\components\MyHelper;
 use app\models\User;
 use Yii;
 use yii\data\Pagination;
@@ -74,7 +75,7 @@ class UserController extends AbstractAdmin
         $deleteUser = User::find()->where(['id' => $id])->one();
 
         if (!is_null($deleteUser->photo_link)) {
-            deleteFile($deleteUser->photo_link);
+            MyHelper::deleteFile($deleteUser->photo_link);
         }
 
         $deleteUser->delete();

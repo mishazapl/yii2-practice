@@ -2,37 +2,41 @@
 
 namespace app\modules\admin\controllers;
 
+use app\components\MyHelper;
 use app\models\Article\Article;
 use app\models\User;
 use Yii;
 use yii\data\Pagination;
-use yii\helpers\ArrayHelper;
 use yii\web\HttpException;
 use yii\web\UploadedFile;
 
 class ArticleController extends AbstractAdmin
 {
 
+    /**
+     * Данный способ служит оптимизацией запроса к бд.
+     * В случае без хеширование бд 2 лишних запроса, в случае с хешерованием 1 лишний.
+     * Без хеширование сэкономил 2млс в случае хеширования 1 млс.
+     *
+     * Алгоритм работы.
+     *
+     * 1. Выбираем все статьи/определенное кол-во в виде массива;
+     * 1. Делаем из него с помощью arrayHelperMap массив вида user_id=>user_id;
+     * 1. Выбираем всех user_id и делаем массив id=>login;
+     * 1. В виде выбираем article['header'], user Login users[article['user_id'];
+     *
+     */
+
     public function actionIndex()
     {
-        $model = Article::find();
 
-        $pages = new Pagination(['totalCount' => $model->count(), 'pageSize' => 5, 'pageSizeParam' => false, 'forcePageParam' => false]);
-
-        $pages->route = '/admin/articles';
-
-        $articles = $model->offset($pages->offset)->limit($pages->limit)->asArray()->all();
-
-        $idUser = ArrayHelper::map($articles, 'user_id', 'user_id');
-        $users  = ArrayHelper::map(User::find()->where(['in', 'id', $idUser])->select(['id', 'login'])->asArray()->all(), 'id', 'login');
-
+        $result = Article::articlePaginate('/admin/articles');
 
         return $this->render('index', array
             (
 
-            'articles' => $articles,
-            'users' => $users,
-            'pages' => $pages,
+            'articles' => $result['articles'],
+            'pages' => $result['pages'],
 
             )
         );
@@ -92,7 +96,7 @@ class ArticleController extends AbstractAdmin
             throw new HttpException(404, 'Данная статья возможна была удалена');
 
         if (!is_null($article->photo_link)) {
-            deleteFile($article->photo_link);
+            MyHelper::deleteFile($article->photo_link);
         }
 
         if (!file_exists('/uploads/article/'.$article->id)) {

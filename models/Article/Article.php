@@ -2,10 +2,14 @@
 
 namespace app\models\Article;
 
+use app\components\MyHelper;
 use app\controllers\SaveImage;
 use app\models\User;
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\data\Pagination;
 use yii\db\ActiveRecord;
+use yii\db\Expression;
 
 /**
  * This is the model class for table "article".
@@ -25,6 +29,18 @@ class Article extends ActiveRecord
 {
 
     public $image;
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at',
+                'value' => new Expression('NOW()'),
+            ],
+        ];
+    }
 
     /**
      * @inheritdoc
@@ -78,7 +94,7 @@ class Article extends ActiveRecord
         $article->full_text = $this->full_text;
 
         if (!is_null($article->photo_link) && !is_null($this->image)) {
-            deleteFile($article->photo_link);
+            MyHelper::deleteFile($article->photo_link);
         }
 
         if (file_exists('/uploads/article/'.$article->id)) {
@@ -110,6 +126,35 @@ class Article extends ActiveRecord
 
         $this->update();
 
+    }
+
+    /**
+     * @param $route
+     * @return mixed
+     *
+     * Данный способ служит оптимизацией запроса к бд.
+     * В случае без хеширование бд 2 лишних запроса, в случае с хешерованием 1 лишний.
+     * Без хеширование сэкономил 2млс в случае хеширования 1 млс.
+     *
+     * Алгоритм работы.
+     *
+     * 1. Выбираем все статьи/определенное кол-во в виде массива;
+     * 1. Делаем из него с помощью arrayHelperMap массив вида user_id=>user_id;
+     * 1. Выбираем всех user_id и делаем массив id=>login;
+     * 1. В виде выбираем article['header'], user Login users[article['user_id'];
+     */
+
+    public static function articlePaginate($route, $pageSize = 5)
+    {
+        $model = Article::find();
+
+        $result['pages'] = $pages = new Pagination(['totalCount' => $model->count(), 'pageSize' => $pageSize, 'pageSizeParam' => false, 'forcePageParam' => false]);
+
+        $pages->route = $route;
+
+        $result['articles'] = $articles = $model->offset($pages->offset)->limit($pages->limit)->with('user')->all();
+
+        return $result;
     }
 
 

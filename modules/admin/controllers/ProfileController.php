@@ -2,6 +2,7 @@
 
 namespace app\modules\admin\controllers;
 
+use app\components\MyHelper;
 use app\models\profile\UpdateProfileAdmin;
 use app\models\User;
 use Yii;
@@ -38,7 +39,7 @@ class ProfileController extends AbstractAdmin
     public function actionDeleteProfile()
     {
         if (!is_null(Yii::$app->user->identity->photo_link)) {
-            deleteFile(Yii::$app->user->identity->photo_link);
+            MyHelper::deleteFile(Yii::$app->user->identity->photo_link);
         }
         $model = User::find()->where(['login' => Yii::$app->user->identity->login])->one();
         $model->delete();

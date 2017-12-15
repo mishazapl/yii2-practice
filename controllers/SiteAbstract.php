@@ -16,7 +16,7 @@ class SiteAbstract extends Controller
     public function init()
     {
         parent::init();
-//        var_dump(Yii::$app->user->can('banned'));
+
         if (Yii::$app->user->can('banned')) {
             $name = 'Доступ запрещен';
             $message = 'Вы были заблокированы за нарушения правил сайта.';

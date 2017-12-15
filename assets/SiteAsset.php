@@ -24,6 +24,7 @@ class SiteAsset extends AssetBundle
     public $css = [
         'css/siteMain.css',
         'css/font-awesome.min.css',
+        'css/bootstrap.min.css',
     ];
     public $js = [
 
@@ -39,6 +40,5 @@ class SiteAsset extends AssetBundle
     ];
     public $depends = [
         'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
     ];
 }
