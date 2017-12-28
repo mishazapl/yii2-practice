@@ -13,7 +13,6 @@ use Yii;
  * @property string $created_at
  * @property string $updated_at
  *
- * @property CommentArticle[] $commentArticles
  */
 class CommentArticles extends \yii\db\ActiveRecord
 {
@@ -50,12 +49,5 @@ class CommentArticles extends \yii\db\ActiveRecord
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getCommentsArticles()    {
-        return $this->hasMany(CommentArticles::className(), ['comment_id' => 'id']);
     }
 }

@@ -128,22 +128,6 @@ class Article extends ActiveRecord
 
     }
 
-    /**
-     * @param $route
-     * @return mixed
-     *
-     * Данный способ служит оптимизацией запроса к бд.
-     * В случае без хеширование бд 2 лишних запроса, в случае с хешерованием 1 лишний.
-     * Без хеширование сэкономил 2млс в случае хеширования 1 млс.
-     *
-     * Алгоритм работы.
-     *
-     * 1. Выбираем все статьи/определенное кол-во в виде массива;
-     * 1. Делаем из него с помощью arrayHelperMap массив вида user_id=>user_id;
-     * 1. Выбираем всех user_id и делаем массив id=>login;
-     * 1. В виде выбираем article['header'], user Login users[article['user_id'];
-     */
-
     public static function articlePaginate($route, $pageSize = 5)
     {
         $model = Article::find();

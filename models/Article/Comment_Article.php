@@ -55,26 +55,31 @@ class Comment_Article extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * У одной статьи много комментариев.
      */
-    public function getArticle()
+    public function getArticleComments()
     {
-        return $this->hasOne(Article::className(), ['id' => 'article_id']);
+        return $this->hasMany(Article::className(), ['id' => 'article_id'])
+            ->viaTable('CommentArticles', ['comment_id' => 'id']);
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * У одного комментария может быть одна статья.
      */
-    public function getComment()
+    public function getCommentArticles()
     {
-        return $this->hasOne(CommentArticles::className(), ['id' => 'comment_id']);
+        return $this->hasOne(CommentArticles::className(), ['id' => 'comment_id'])
+            ->viaTable('article', ['article_id' => 'id']);
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * У одного юзера много комментариев.
      */
-    public function getUser()
+    public function getUserComment()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return $this->hasMany(User::className(), ['id' => 'user_id'])
+            ->viaTable('CommentArticles', ['comment_id' => 'id']);
     }
+
+
 }

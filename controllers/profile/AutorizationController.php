@@ -37,6 +37,18 @@ class AutorizationController extends SiteAbstract
      */
     public function actionIndex()
     {
+//        $auth = Yii::$app->authManager;
+//
+//        $admin = $auth->createRole('admin');
+//        $user = $auth->createRole('user');
+//        $banned = $auth->createRole('banned');
+//
+//        // запишем их в БД
+//        $auth->add($admin);
+//        $auth->add($user);
+//        $auth->add($banned);
+//
+//        $auth->addChild($admin,$user);
 
         $title = 'Блог по Web-разработки Yii2, PHP7, Курсы.';
         $result = Article::articlePaginate('/', 3);
