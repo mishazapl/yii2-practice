@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\models\Article\Article;
+use app\models\profile\PrivateInfoUser;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
@@ -131,4 +132,17 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->getAuthKey() === $authKey;
     }
+
+    /**
+     * Связи моделей.
+     */
+
+    /* open */
+
+    public function getPrivateProfile()
+    {
+        return $this->hasOne(PrivateInfoUser::className(), ['user_id' => 'id']);
+    }
+
+    /* close */
 }

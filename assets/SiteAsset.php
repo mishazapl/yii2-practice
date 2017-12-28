@@ -25,6 +25,7 @@ class SiteAsset extends AssetBundle
         'css/siteMain.css',
         'css/font-awesome.min.css',
         'css/bootstrap.min.css',
+        'css/profile-layout.css',
     ];
     public $js = [
 

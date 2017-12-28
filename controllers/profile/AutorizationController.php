@@ -64,9 +64,10 @@ class AutorizationController extends SiteAbstract
     }
 
     /**
-     * Login action.
+     * Авторизация
      *
-     * @return Response|string
+     * @return string|Response
+     * @throws HttpException
      */
     public function actionLogin()
     {
@@ -86,9 +87,10 @@ class AutorizationController extends SiteAbstract
     }
 
     /**
-     * Logout action.
+     * Выход.
      *
      * @return Response
+     * @throws HttpException
      */
     public function actionLogout()
     {

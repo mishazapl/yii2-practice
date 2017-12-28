@@ -12,7 +12,12 @@ use Yii;
 
 trait SaveImage
 {
-
+    /**
+     * Служит для сохранения картинок для конкретной модели.
+     *
+     * @param $model
+     * @param $path
+     */
     protected function saveImage($model, $path)
     {
 
