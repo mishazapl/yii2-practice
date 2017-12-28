@@ -95,11 +95,11 @@ class ArticleController extends AbstractAdmin
         if (is_null($article))
             throw new HttpException(404, 'Данная статья возможна была удалена');
 
-        if (!is_null($article->photo_link)) {
+        if (file_exists('.' . $article->photo_link)) {
             MyHelper::deleteFile($article->photo_link);
         }
 
-        if (!file_exists('/uploads/article/'.$article->id)) {
+        if (is_dir('./uploads/article/'.$article->id)) {
 
             rmdir('uploads/article/' . $id);
 
