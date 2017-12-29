@@ -10,7 +10,14 @@ use yii\helpers\Html;
 SiteAsset::register($this);
 
 if (!Yii::$app->user->isGuest) {
-    $userInfo = \app\models\profile\PrivateInfoUser::find()->where(['user_id' => Yii::$app->user->identity->getId()])->one();
+
+    $privateInfo = new \app\models\profile\PrivateInfoUser;
+    $userId = Yii::$app->user->identity->getId();
+
+    $privateInfo->setInfo($userId);
+
+    $session = $session = Yii::$app->session;
+    $userInfo = $session->get($userId);
 }
 
 ?>
@@ -108,9 +115,9 @@ if (!Yii::$app->user->isGuest) {
                                     <?= (!is_null($userInfo->last_name)) ? $userInfo->last_name : 'Новый'; ?>
                                 </a>
                             </div>
-                            <div class="desc">Пол: <?= (!is_null($userInfo->gender)) ? $userInfo->gender : 'не указан'; ?></div>
-                            <div class="desc">Curious developer</div>
-                            <div class="desc">Tech geek</div>
+                            <div class="desc">Пол: <?= (!is_null($userInfo->gender)) ? $userInfo->gender : 'не указано'; ?></div>
+                            <div class="desc">Профессия: <?= (!is_null($userInfo->career)) ? $userInfo->career : 'не указано'; ?></div>
+                            <div class="desc">Год рождения: <?= (!is_null($userInfo->birthdate)) ? $userInfo->birthdate : 'не указано'; ?></div>
                         </div>
                         <div class="bottom">
                             <a class="btn btn-primary btn-twitter btn-sm" href="https://twitter.com/webmaniac">

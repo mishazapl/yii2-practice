@@ -23,6 +23,8 @@ class m171228_140504_private_info_user extends Migration
             'gender' => $this->char(),
             'career' => $this->string('40'),
             'birthdate' => $this->string('40'),
+            'background_link' => $this->string(),
+            'photo_link' => $this->string(),
             'message' => $this->integer(),
             'rank' => $this->string('50'),
             'created_at' => $this->timestamp()->defaultValue(null),

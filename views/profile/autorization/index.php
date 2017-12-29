@@ -7,9 +7,10 @@ use yii\widgets\Pjax;
 
 $this->title = $title;
 
+
 ?>
 <?php Pjax::begin(['id' => 'article', 'timeout' => 10000, 'enablePushState' => false]) ?>
-Banner
+
 <style>
     .content p {
         font-size: 1.3em;

@@ -3,8 +3,10 @@
 namespace app\models\profile;
 
 use app\models\User;
+use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
+use yii\web\HttpException;
 
 /**
  * This is the model class for table "private_info_user".
@@ -86,5 +88,35 @@ class PrivateInfoUser extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    /**
+     * Получения профиля пользователя и запись в сессию.
+     *
+     * @param $id
+     * @return object
+     * @throws HttpException
+     */
+    public function setInfo($id): void
+    {
+        $id = (int) $id;
+        $session = Yii::$app->session;
+
+        /**
+         * 1. Проверка на существование
+         * 2. Если нету таких данных в сессии, получаем профиль пользователя
+         * и записываем в сессию.
+         *
+         *  @var $id.
+         *  @var $user.
+         */
+        if (!$session->has($id)) {
+            $user = $this::find()->where(['user_id' => $id])->one();
+            if (!is_null($user)) {
+                $session->set($id, $user);
+            } else {
+                throw new  HttpException(409, 'Произошла ошибка, свяжитесь с администратором, mzapalenov@mail.ru');
+            }
+        }
     }
 }
