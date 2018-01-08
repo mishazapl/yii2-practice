@@ -6,6 +6,7 @@
 
 use app\assets\SiteAsset;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 SiteAsset::register($this);
 
@@ -106,11 +107,11 @@ if (!Yii::$app->user->isGuest) {
 
                         </div>
                         <div class="avatar">
-                            <img alt="" src="http://lorempixel.com/100/100/people/9/">
+                            <img alt="<?= (!is_null($userInfo->first_name)) ? $userInfo->first_name : 'Новый'; ?>" src="<?= (!is_null($userInfo->photo_link)) ? $userInfo->photo_link : 'http://lorempixel.com/100/100/people/9/'; ?>">
                         </div>
                         <div class="info">
                             <div class="title">
-                                <a href="http://scripteden.com/">
+                                <a href="<?= Url::to(['account/']) ?>">
                                     <?= (!is_null($userInfo->first_name)) ? $userInfo->first_name : 'Новый'; ?>
                                     <?= (!is_null($userInfo->last_name)) ? $userInfo->last_name : 'Новый'; ?>
                                 </a>
@@ -120,17 +121,13 @@ if (!Yii::$app->user->isGuest) {
                             <div class="desc">Год рождения: <?= (!is_null($userInfo->birthdate)) ? $userInfo->birthdate : 'не указано'; ?></div>
                         </div>
                         <div class="bottom">
-                            <a class="btn btn-primary btn-twitter btn-sm" href="https://twitter.com/webmaniac">
+                            <a class="btn btn-primary btn-twitter btn-sm" target="_blank" href="https://vk.com/volgograd_web">
                                 <i class="fa fa-vk"></i>
                             </a>
-                            <a class="btn btn-danger btn-sm" rel="publisher"
-                               href="https://plus.google.com/+ahmshahnuralam">
-                                <i class="fa fa-google-plus"></i>
-                            </a>
-                            <a class="btn btn-primary btn-sm" rel="publisher"
-                               href="https://plus.google.com/shahnuralam">
-                                <i class="fa fa-facebook"></i>
-                            </a>
+                            <div>
+                                <a class="btn btn-primary" style="margin-top: 1.5em;" href="<?= Url::to(['account/edit']) ?>">Редактировать профиль</a>
+                                <a class="btn btn-danger" style="margin-top: 1.5em;" href="<?= Url::to(['account/delete']) ?>">Удалить профиль</a>
+                            </div>
                         </div>
                     </div>
                     <?php endif; ?>

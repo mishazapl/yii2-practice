@@ -59,9 +59,9 @@ class Article extends ActiveRecord
             [['header', 'small_text', 'full_text'], 'required'],
             [['user_id'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
-            [['full_text'], 'string', 'min' => 20, 'max' => 5000],
-            [['small_text'], 'string', 'min' => 15, 'max' => 2500],
-            [['header'], 'string', 'min' => 10, 'max' => 300],
+            [['full_text'], 'string',  'max' => 5000],
+            [['small_text'], 'string', 'max' => 2500],
+            [['header'], 'string',  'max' => 300],
         ];
     }
 

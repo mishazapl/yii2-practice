@@ -27,6 +27,7 @@ class SignupForm extends Model
             ['login', 'unique', 'targetClass' => '\app\models\User', 'message' => 'This login has already been taken.'],
             ['login', 'string', 'min' => 2, 'max' => 255],
             ['email', 'trim'],
+            ['login',  'match', 'pattern' => '/^[a-z]\w*$/i', 'message' => 'В логине запрещены пробелы'],
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],

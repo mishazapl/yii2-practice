@@ -1,7 +1,6 @@
 <?php
 
 namespace app\models\profile;
-
 use app\models\User;
 use Yii;
 use yii\behaviors\TimestampBehavior;
@@ -16,20 +15,24 @@ use yii\web\HttpException;
  * @property string $first_name
  * @property string $last_name
  * @property string $gender
+ * @property string $career
+ * @property string $birthdate
+ * @property string $background_link
+ * @property string $photo_link
  * @property int $message
- * @property string $rank
  * @property string $created_at
  *
  * @property User $user
  */
 class PrivateInfoUser extends \yii\db\ActiveRecord
 {
+
     /**
      * Поведения для сохранения временной метки.
      *
      * @return array
      */
-    public function behaviors()
+    public function behaviors(): array
     {
         return [
             [
@@ -40,7 +43,6 @@ class PrivateInfoUser extends \yii\db\ActiveRecord
             ],
         ];
     }
-
     /**
      * @inheritdoc
      */
@@ -58,8 +60,10 @@ class PrivateInfoUser extends \yii\db\ActiveRecord
             [['user_id'], 'required'],
             [['user_id', 'message'], 'integer'],
             [['created_at'], 'safe'],
-            [['first_name', 'last_name', 'rank'], 'string', 'max' => 50],
+            [['first_name', 'last_name'], 'string', 'max' => 50],
             [['gender'], 'string', 'max' => 1],
+            [['career', 'birthdate'], 'string', 'max' => 40],
+            [['background_link', 'photo_link'], 'string'],
             [['user_id'], 'unique'],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
@@ -73,12 +77,15 @@ class PrivateInfoUser extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'user_id' => 'User ID',
-            'first_name' => 'First Name',
-            'last_name' => 'Last Name',
-            'gender' => 'Gender',
-            'message' => 'Message',
-            'rank' => 'Rank',
-            'created_at' => 'Created At',
+            'first_name' => 'Имя',
+            'last_name' => 'Фамилия',
+            'gender' => 'Пол',
+            'career' => 'Должность',
+            'birthdate' => 'День рождение',
+            'background_link' => 'Задний фон профиля',
+            'photo_link' => 'Фотография профиля',
+            'message' => 'Количество сообщений',
+            'created_at' => 'Дата создания',
         ];
     }
 
@@ -94,14 +101,12 @@ class PrivateInfoUser extends \yii\db\ActiveRecord
      * Получения профиля пользователя и запись в сессию.
      *
      * @param $id
-     * @return object
      * @throws HttpException
      */
     public function setInfo($id): void
     {
         $id = (int) $id;
         $session = Yii::$app->session;
-
         /**
          * 1. Проверка на существование
          * 2. Если нету таких данных в сессии, получаем профиль пользователя

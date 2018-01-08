@@ -13,10 +13,11 @@ use Yii;
 trait SaveImage
 {
     /**
-     * Служит для сохранения картинок для конкретной модели.
+     * Сохранение изображение и генерация рандомного пути.
      *
      * @param $model
      * @param $path
+     * @throws \yii\base\Exception
      */
     protected function saveImage($model, $path)
     {

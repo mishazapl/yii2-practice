@@ -65,6 +65,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+
                 '' => 'profile/autorization/index',
                 /**
                  * Роуты редактирования/удаления профиля
@@ -96,8 +97,11 @@ $config = [
                  */
                 'article/<id:\d+>' => 'article/articles/index',
 
-
-                '<action>'=>'profile/autorization/<action>',
+                /**
+                 * Роуты профиля
+                 */
+                'account/edit' => 'profile/private-profile/edit-page',
+                'account/' => 'profile/private-profile/index',
             ],
         ],
     ],
